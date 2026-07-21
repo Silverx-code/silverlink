@@ -1,20 +1,13 @@
-import Navbar from '../components/Navbar';
-import Hero from '../components/Hero';
-import HowItWorks from '../components/HowItWorks';
-import Footer from '../components/Footer';
+import Hero from '../src/components/Hero';
+import HowItWorks from '../src/components/HowItWorks';
 
-// Drop this in as app/page.jsx. Navbar/Footer are already rendered here rather than
-// in a shared layout, since ProtectedRoute-wrapped pages may want a different chrome —
-// adjust if your layout.jsx already renders them globally.
+// Navbar/Footer are already rendered globally in app/layout.jsx, so this page
+// only needs the content that goes between them.
 export default function LandingPage() {
   return (
     <>
-      <Navbar />
-      <main>
-        <Hero />
-        <HowItWorks />
-      </main>
-      <Footer />
+      <Hero />
+      <HowItWorks />
     </>
   );
 }
