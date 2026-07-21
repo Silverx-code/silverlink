@@ -2,7 +2,7 @@
 module.exports = {
   content: [
     './app/**/*.{js,jsx,ts,tsx}',
-    './components/**/*.{js,jsx,ts,tsx}',
+    './src/**/*.{js,jsx,ts,tsx}',
   ],
   theme: {
     extend: {
@@ -39,7 +39,7 @@ module.exports = {
         glow: '0 0 0 1px rgba(30,79,216,0.08), 0 0 40px -8px rgba(30,79,216,0.35)',
       },
       backgroundImage: {
-        'grid-fade': 'radial-gradient(circle at 1px 1px, rgba(30,79,216,0.14) 1px, transparent 0)',
+        'grid-fade': 'radial-gradient(circle at 1px 1px, rgba(30,79,216,0.28) 1.5px, transparent 0)',
       },
       keyframes: {
         'fade-up': {

@@ -64,7 +64,7 @@ export default function Hero() {
 
   return (
     <section className="relative overflow-hidden bg-white">
-      <div className="absolute inset-0 bg-dot-grid opacity-40 pointer-events-none" />
+      <div className="absolute inset-0 bg-dot-grid opacity-70 pointer-events-none" />
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-20 lg:py-28 grid lg:grid-cols-2 gap-12 lg:gap-8 items-center relative">
         {/* Copy */}
         <div className="animate-fade-up">
