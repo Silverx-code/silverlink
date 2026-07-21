@@ -10,6 +10,7 @@ import {
 } from '../../src/api/admin';
 import LoadingScreen from '../../src/components/LoadingScreen';
 import ProtectedRoute from '../../src/components/ProtectedRoute';
+import AdminAddCompanyForm from '../../src/components/AdminAddCompanyForm';
 
 function AdminDashboardContent() {
   const [stats, setStats] = useState(null);
@@ -155,6 +156,11 @@ function AdminDashboardContent() {
           ))}
         </div>
       )}
+
+      <h2 className="font-heading text-lg font-semibold mb-3">Seed the directory</h2>
+      <div className="mb-10">
+        <AdminAddCompanyForm />
+      </div>
 
       <h2 className="font-heading text-lg font-semibold mb-3">Universities & coordinators</h2>
       <div className="grid md:grid-cols-2 gap-6">

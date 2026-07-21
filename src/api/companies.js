@@ -7,3 +7,4 @@ export const addReview = (id, payload) => api.post(`/companies/${id}/reviews`, p
 export const saveCompany = (id) => api.post(`/students/me/saved-companies/${id}`).then((r) => r.data);
 export const unsaveCompany = (id) => api.delete(`/students/me/saved-companies/${id}`).then((r) => r.data);
 export const getSavedCompanies = () => api.get('/students/me/saved-companies').then((r) => r.data);
+export const createCompanyAdmin = (payload) => api.post('/companies', payload).then((r) => r.data);
