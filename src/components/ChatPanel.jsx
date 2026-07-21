@@ -54,18 +54,26 @@ export default function ChatPanel({ applicationId }) {
   };
 
   return (
-    <div className="card flex flex-col h-96">
-      <h3 className="font-heading font-semibold mb-2 text-sm">
-        Conversation {!joined && <span className="text-gray-400 font-normal">(connecting...)</span>}
+    <div className="card flex flex-col h-[70vh] max-h-96 sm:h-96">
+      <h3 className="font-heading font-semibold mb-2 text-sm text-ink flex items-center gap-2">
+        Conversation
+        {!joined && (
+          <span className="inline-flex items-center gap-1 text-silver-dark font-normal text-xs">
+            <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse-line" />
+            connecting...
+          </span>
+        )}
       </h3>
 
       <div className="flex-1 overflow-y-auto space-y-2 pr-1">
-        {messages.length === 0 && <p className="text-sm text-gray-400">No messages yet — say hello.</p>}
+        {messages.length === 0 && <p className="text-sm text-silver-dark">No messages yet — say hello.</p>}
         {messages.map((m) => (
           <div
             key={m.id}
-            className={`max-w-[75%] px-3 py-2 rounded-2xl text-sm ${
-              m.sender_id === user?.id ? 'bg-primary text-white ml-auto' : 'bg-gray-100 text-gray-800'
+            className={`max-w-[85%] sm:max-w-[75%] px-3 py-2 rounded-2xl text-sm break-words ${
+              m.sender_id === user?.id
+                ? 'bg-primary text-white ml-auto rounded-br-md'
+                : 'bg-silver-light text-ink rounded-bl-md'
             }`}
           >
             {m.body}
@@ -74,7 +82,7 @@ export default function ChatPanel({ applicationId }) {
         <div ref={bottomRef} />
       </div>
 
-      {error && <p className="text-xs text-red-500 mt-2">{error}</p>}
+      {error && <p className="text-xs text-danger mt-2">{error}</p>}
 
       <form onSubmit={send} className="flex gap-2 mt-3">
         <input
@@ -83,7 +91,7 @@ export default function ChatPanel({ applicationId }) {
           value={draft}
           onChange={(e) => setDraft(e.target.value)}
         />
-        <button type="submit" className="btn-primary shrink-0">Send</button>
+        <button type="submit" className="btn-primary shrink-0 px-4">Send</button>
       </form>
     </div>
   );

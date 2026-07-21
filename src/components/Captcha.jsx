@@ -27,17 +27,17 @@ export default function Captcha({ onChange }) {
   }, [token, answer]);
 
   return (
-    <div className="flex gap-2 items-center">
-      <span className="text-sm text-gray-600 whitespace-nowrap">{question || 'Loading...'}</span>
+    <div className="flex flex-wrap gap-2 items-center bg-silver-light/50 rounded-xl px-3 py-2.5">
+      <span className="font-mono text-sm text-ink whitespace-nowrap">{question || 'Loading...'}</span>
       <input
         type="number"
-        className="input"
+        className="input w-24 py-1.5"
         placeholder="Answer"
         value={answer}
         onChange={(e) => setAnswer(e.target.value)}
         required
       />
-      <button type="button" onClick={load} className="text-xs text-primary shrink-0">
+      <button type="button" onClick={load} className="text-xs text-primary hover:text-primary-dark shrink-0">
         New question
       </button>
     </div>

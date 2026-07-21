@@ -5,7 +5,7 @@
 export default function InlineSpinner({ size = 20, className = '' }) {
   return (
     <div
-      className={`border-2 border-gray-200 border-t-primary rounded-full animate-spin ${className}`}
+      className={`border-2 border-silver/30 border-t-primary rounded-full animate-spin ${className}`}
       style={{ width: size, height: size }}
     />
   );

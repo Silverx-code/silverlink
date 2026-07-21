@@ -57,11 +57,20 @@ export default function DirectoryFilters({ initial }) {
   }, []);
 
   return (
-    <div className="card mb-8 grid md:grid-cols-3 lg:grid-cols-6 gap-3">
-      <input
-        name="q" placeholder="Search by name" className="input lg:col-span-2"
-        value={filters.q} onChange={onTextChange}
-      />
+    <div className="card mb-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+      <div className="relative lg:col-span-2">
+        <svg
+          width="16" height="16" viewBox="0 0 24 24" fill="none"
+          className="absolute left-3 top-1/2 -translate-y-1/2 text-silver-dark pointer-events-none"
+        >
+          <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="1.8" />
+          <path d="m20 20-3.5-3.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+        </svg>
+        <input
+          name="q" placeholder="Search by name" className="input pl-9"
+          value={filters.q} onChange={onTextChange}
+        />
+      </div>
       <input
         name="department" placeholder="Department" className="input"
         value={filters.department} onChange={onTextChange}
