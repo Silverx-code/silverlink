@@ -9,3 +9,6 @@ export const moderateReview = (id, action) => api.patch(`/admin/reviews/${id}/mo
 export const getUniversities = () => api.get('/admin/universities').then((r) => r.data);
 export const createUniversity = (payload) => api.post('/admin/universities', payload).then((r) => r.data);
 export const createCoordinator = (payload) => api.post('/admin/coordinators', payload).then((r) => r.data);
+export const getUsers = (params) => api.get('/admin/users', { params }).then((r) => r.data);
+export const setUserActive = (id, isActive) => api.patch(`/admin/users/${id}/active`, { isActive }).then((r) => r.data);
+export const deleteUser = (id) => api.delete(`/admin/users/${id}`).then((r) => r.data);
