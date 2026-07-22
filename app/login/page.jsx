@@ -17,8 +17,11 @@ export default function LoginPage() {
     setError('');
     setSubmitting(true);
     try {
-      await login(form);
-      router.push('/dashboard');
+      const user = await login(form);
+      if (user.role === 'company') router.push('/company/dashboard');
+      else if (user.role === 'admin') router.push('/admin');
+      else if (user.role === 'coordinator') router.push('/university/dashboard');
+      else router.push('/dashboard');
     } catch (err) {
       setError(err.response?.data?.message || 'Invalid email or password');
     } finally {
