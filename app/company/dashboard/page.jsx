@@ -6,6 +6,7 @@ import Image from 'next/image';
 import {
   getMyCompany, updateMyCompany, updateMyDepartments, updateMyStatus, uploadMyLogo, getMyViewStats,
 } from '../../../src/api/company';
+import { resendCompanyVerification } from '../../../src/api/auth';
 import { useAuth } from '../../../src/context/AuthContext';
 import LoadingScreen from '../../../src/components/LoadingScreen';
 import ProtectedRoute from '../../../src/components/ProtectedRoute';
@@ -31,6 +32,8 @@ function CompanyDashboardContent() {
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState('');
   const [deptInput, setDeptInput] = useState('');
+  const [resending, setResending] = useState(false);
+  const [resendError, setResendError] = useState('');
 
   const load = () => {
     setLoading(true);
@@ -92,6 +95,19 @@ function CompanyDashboardContent() {
     flash('Logo updated');
   };
 
+  const onResendVerification = async () => {
+    setResending(true);
+    setResendError('');
+    try {
+      await resendCompanyVerification();
+      flash('Verification email sent — check your inbox (and spam folder).');
+    } catch (err) {
+      setResendError(err.response?.data?.message || 'Could not resend right now. Please try again shortly.');
+    } finally {
+      setResending(false);
+    }
+  };
+
   if (loading) return <LoadingScreen label="Loading dashboard..." />;
   if (!company) return <p className="text-center text-gray-400 py-16">No company profile found.</p>;
 
@@ -107,6 +123,19 @@ function CompanyDashboardContent() {
               <span className="text-yellow-600">Pending verification — check your email</span>
             )}
           </p>
+          {!company.is_verified && (
+            <div className="mt-1">
+              <button
+                type="button"
+                onClick={onResendVerification}
+                disabled={resending}
+                className="text-sm text-primary font-medium disabled:opacity-50"
+              >
+                {resending ? 'Sending...' : 'Resend verification email'}
+              </button>
+              {resendError && <p className="text-xs text-red-500 mt-1">{resendError}</p>}
+            </div>
+          )}
         </div>
         <Link href="/company/applications" className="btn-primary text-sm py-2">View applications →</Link>
       </div>
