@@ -1,23 +1,26 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
-const STATUS_LABEL = {
-  currently_accepting: { text: 'Currently Accepting', cls: 'badge-accepting' },
-  pending_confirmation: { text: 'Pending Confirmation', cls: 'badge-pending' },
-  historical_listing: { text: 'Historical Listing', cls: 'badge-historical' },
-  applications_closed: { text: 'Applications Closed', cls: 'badge-closed' },
+// Same four statuses as before, but expressed as a dot + label instead of a
+// solid colour pill, and mapped to the design system's actual status colours
+// (success/warning/silver/danger) rather than one-off hex values.
+const STATUS = {
+  currently_accepting: { text: 'Currently Accepting', dot: 'bg-success', border: 'border-l-success', pulse: true },
+  pending_confirmation: { text: 'Pending Confirmation', dot: 'bg-warning', border: 'border-l-warning', pulse: false },
+  historical_listing: { text: 'Historical Listing', dot: 'bg-silver-dark', border: 'border-l-silver', pulse: false },
+  applications_closed: { text: 'Applications Closed', dot: 'bg-danger', border: 'border-l-danger', pulse: false },
 };
 
 // Deliberately not marked 'use client' — this renders fine as a Server Component,
 // which means company cards on the directory page are part of the server-rendered
 // HTML rather than something crawlers have to wait on client JS to paint.
 export default function CompanyCard({ company }) {
-  const status = STATUS_LABEL[company.status] || STATUS_LABEL.historical_listing;
+  const status = STATUS[company.status] || STATUS.historical_listing;
 
   return (
     <Link
       href={`/companies/${company.id}`}
-      className="card group flex flex-col sm:flex-row gap-4 hover:shadow-card-hover hover:-translate-y-0.5 hover:border-primary/30"
+      className={`card group flex flex-col sm:flex-row gap-4 border-l-4 ${status.border} hover:shadow-card-hover hover:-translate-y-0.5 hover:border-primary/30`}
     >
       <div className="w-14 h-14 rounded-xl bg-silver-light flex items-center justify-center overflow-hidden shrink-0 relative ring-1 ring-silver/20">
         {company.logo_url ? (
@@ -31,7 +34,15 @@ export default function CompanyCard({ company }) {
           <h3 className="font-heading font-semibold text-ink truncate group-hover:text-primary transition-colors">
             {company.name}
           </h3>
-          <span className={status.cls}>{status.text}</span>
+          <span className="inline-flex items-center gap-1.5 text-xs font-medium text-silver-dark whitespace-nowrap">
+            <span className="relative flex w-2 h-2">
+              {status.pulse && (
+                <span className={`absolute inline-flex w-full h-full rounded-full ${status.dot} opacity-60 animate-pulse-line`} />
+              )}
+              <span className={`relative inline-flex w-2 h-2 rounded-full ${status.dot}`} />
+            </span>
+            {status.text}
+          </span>
         </div>
         <p className="text-sm text-silver-dark mt-1">{company.industry}</p>
         <div className="flex flex-wrap items-center gap-2 mt-1">

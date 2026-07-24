@@ -21,6 +21,10 @@ export default function Hero() {
   const [pointer, setPointer] = useState({ x: 0.5, y: 0.5 });
   const [activeLine, setActiveLine] = useState(0);
   const [reducedMotion, setReducedMotion] = useState(false);
+  // Drives the one-time "connections forming" reveal on mount — lines and nodes
+  // draw themselves in sequence rather than appearing all at once, since that
+  // sequence is the actual pitch: unconnected sides resolving into a match.
+  const [revealed, setRevealed] = useState(false);
 
   useEffect(() => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -28,6 +32,13 @@ export default function Hero() {
     const onChange = () => setReducedMotion(mq.matches);
     mq.addEventListener?.('change', onChange);
     return () => mq.removeEventListener?.('change', onChange);
+  }, []);
+
+  useEffect(() => {
+    // Kick the reveal on next frame so the draw-in animation actually plays
+    // instead of the browser painting the end state immediately.
+    const id = requestAnimationFrame(() => setRevealed(true));
+    return () => cancelAnimationFrame(id);
   }, []);
 
   useEffect(() => {
@@ -63,8 +74,8 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative overflow-hidden bg-white">
-      <div className="absolute inset-0 bg-dot-grid opacity-70 pointer-events-none" />
+    <section className="relative overflow-hidden bg-gradient-to-b from-silver-light/50 to-page">
+      <div className="absolute inset-0 bg-link-grid opacity-60 pointer-events-none" />
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-20 lg:py-28 grid lg:grid-cols-2 gap-12 lg:gap-8 items-center relative">
         {/* Copy */}
         <div className="animate-fade-up">
@@ -86,8 +97,8 @@ export default function Hero() {
             </Link>
           </div>
           <div className="mt-10 flex flex-wrap gap-x-8 gap-y-3 font-mono text-xs text-silver-dark">
-            <span><strong className="text-ink text-sm">1,200+</strong> companies listed</span>
-            <span><strong className="text-ink text-sm">36</strong> states covered</span>
+            <span><strong className="text-ink text-sm">20+</strong> companies listed</span>
+            <span><strong className="text-ink text-sm">3</strong> states covered</span>
             <span><strong className="text-ink text-sm">Free</strong> for students</span>
           </div>
         </div>
@@ -100,7 +111,7 @@ export default function Hero() {
           className="relative aspect-square sm:aspect-[4/3] lg:aspect-square w-full max-w-lg mx-auto select-none"
         >
           <svg viewBox="0 0 100 100" className="w-full h-full overflow-visible">
-            {/* connection lines */}
+            {/* connection lines — draw themselves in on mount, staggered per node */}
             {NODES.map((node, i) => {
               const p = project(node);
               const isActive = i === activeLine;
@@ -111,10 +122,20 @@ export default function Hero() {
                   y1={CENTER.y * 100}
                   x2={p.x * 100}
                   y2={p.y * 100}
+                  pathLength="1"
                   stroke={isActive ? node.color : '#AAB8CC'}
                   strokeOpacity={isActive ? 0.9 : 0.35}
                   strokeWidth={isActive ? 0.6 : 0.35}
                   className={isActive ? 'animate-pulse-line' : ''}
+                  style={
+                    reducedMotion
+                      ? undefined
+                      : {
+                          strokeDasharray: 1,
+                          strokeDashoffset: revealed ? 0 : 1,
+                          transition: `stroke-dashoffset 0.9s cubic-bezier(0.16,1,0.3,1) ${i * 0.12}s`,
+                        }
+                  }
                 />
               );
             })}
@@ -131,14 +152,19 @@ export default function Hero() {
               strokeWidth="0.5"
             />
 
-            {/* orbit nodes */}
-            {NODES.map((node) => {
+            {/* orbit nodes — fade/scale in just after their line finishes drawing */}
+            {NODES.map((node, i) => {
               const p = project(node);
               return (
                 <g
                   key={node.id}
                   transform={`translate(${p.x * 100} ${p.y * 100})`}
-                  style={{ transition: 'transform 0.15s ease-out' }}
+                  style={{
+                    transition: reducedMotion
+                      ? 'transform 0.15s ease-out'
+                      : `transform 0.15s ease-out, opacity 0.4s ease-out ${0.5 + i * 0.12}s, transform-origin 0s`,
+                    opacity: reducedMotion ? 1 : revealed ? 1 : 0,
+                  }}
                 >
                   <circle r="3.2" fill={node.color} className={reducedMotion ? '' : 'animate-float'} />
                   <circle r="5.4" fill="none" stroke={node.color} strokeOpacity="0.25" strokeWidth="0.4" />
@@ -148,13 +174,18 @@ export default function Hero() {
           </svg>
 
           {/* HTML labels layered over the SVG, positioned to match node coordinates */}
-          {NODES.map((node) => {
+          {NODES.map((node, i) => {
             const p = project(node);
             return (
               <div
                 key={`label-${node.id}`}
                 className="absolute -translate-x-1/2 translate-y-3 font-mono text-[10px] sm:text-xs text-silver-dark whitespace-nowrap pointer-events-none transition-[left,top] duration-150 ease-out"
-                style={{ left: `${p.x * 100}%`, top: `${p.y * 100}%` }}
+                style={{
+                  left: `${p.x * 100}%`,
+                  top: `${p.y * 100}%`,
+                  opacity: reducedMotion ? 1 : revealed ? 1 : 0,
+                  transition: `left 0.15s ease-out, top 0.15s ease-out, opacity 0.4s ease-out ${0.6 + i * 0.12}s`,
+                }}
               >
                 {node.label}
               </div>
