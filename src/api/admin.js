@@ -12,3 +12,5 @@ export const createCoordinator = (payload) => api.post('/admin/coordinators', pa
 export const getUsers = (params) => api.get('/admin/users', { params }).then((r) => r.data);
 export const setUserActive = (id, isActive) => api.patch(`/admin/users/${id}/active`, { isActive }).then((r) => r.data);
 export const deleteUser = (id) => api.delete(`/admin/users/${id}`).then((r) => r.data);
+export const getCompaniesAdmin = (params) => api.get('/admin/companies', { params }).then((r) => r.data);
+export const deleteCompanyAdmin = (id) => api.delete(`/admin/companies/${id}`).then((r) => r.data);
