@@ -97,7 +97,7 @@ export default function Hero() {
             </Link>
           </div>
           <div className="mt-10 flex flex-wrap gap-x-8 gap-y-3 font-mono text-xs text-silver-dark">
-            <span><strong className="text-ink text-sm">20+</strong> companies listed</span>
+            <span><strong className="text-ink text-sm">10+</strong> companies listed</span>
             <span><strong className="text-ink text-sm">3</strong> states covered</span>
             <span><strong className="text-ink text-sm">Free</strong> for students</span>
           </div>
