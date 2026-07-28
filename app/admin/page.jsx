@@ -11,6 +11,7 @@ import {
 import LoadingScreen from '../../src/components/LoadingScreen';
 import ProtectedRoute from '../../src/components/ProtectedRoute';
 import AdminAddCompanyForm from '../../src/components/AdminAddCompanyForm';
+import AdminCompaniesPanel from '../../src/components/AdminCompaniesPanel';
 import AdminUsersPanel from '../../src/components/AdminUsersPanel';
 
 function AdminDashboardContent() {
@@ -166,6 +167,11 @@ function AdminDashboardContent() {
       <h2 className="font-heading text-lg font-semibold mb-3">Seed the directory</h2>
       <div className="mb-10">
         <AdminAddCompanyForm />
+      </div>
+
+      <h2 className="font-heading text-lg font-semibold mb-3">Manage companies</h2>
+      <div className="mb-10">
+        <AdminCompaniesPanel />
       </div>
 
       <h2 className="font-heading text-lg font-semibold mb-3">Universities & coordinators</h2>
