@@ -27,13 +27,16 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className="font-sans bg-white text-ink min-h-screen flex flex-col">
-        <AuthProvider>
-          <Navbar />
-          <main className="flex-1">{children}</main>
-          <Footer />
-        </AuthProvider>
+    <html lang="en" suppressHydrationWarning>
+      <body className="min-h-screen flex flex-col bg-page font-sans text-ink transition-colors duration-300 dark:bg-slate-950 dark:text-slate-100">
+        <ThemeProvider>
+          <AuthProvider>
+            <AnimatedBackground />
+            <Navbar />
+            <main className="relative flex-1">{children}</main>
+            <Footer />
+          </AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
