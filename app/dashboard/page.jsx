@@ -28,58 +28,61 @@ function DashboardContent() {
   if (loading) return <LoadingScreen />;
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-10">
-      <h1 className="font-heading text-2xl font-bold mb-1">
-        Welcome{profile?.full_name ? `, ${profile.full_name.split(' ')[0]}` : ''}
-      </h1>
-      <p className="text-gray-500 mb-8">{user?.email}</p>
+    <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
+      <div className="mb-8 rounded-[2rem] border border-primary/10 bg-white/70 p-6 shadow-card backdrop-blur-sm dark:border-slate-800 dark:bg-slate-900/70">
+        <p className="eyebrow">Your placement network</p>
+        <h1 className="mt-2 font-heading text-2xl font-bold text-ink dark:text-slate-50">
+          Welcome{profile?.full_name ? `, ${profile.full_name.split(' ')[0]}` : ''}
+        </h1>
+        <p className="mt-2 text-sm text-silver-dark dark:text-slate-400">{user?.email}</p>
+      </div>
 
       <ProfileCompletionBanner profile={profile} />
 
-      <div className="grid md:grid-cols-3 gap-4 mb-10">
+      <div className="mb-10 grid gap-4 md:grid-cols-3">
         <div className="card">
-          <p className="text-sm text-gray-400">Department</p>
-          <p className="font-medium">{profile?.department || 'Not set'}</p>
+          <p className="text-sm text-gray-400 dark:text-slate-400">Department</p>
+          <p className="font-medium dark:text-slate-100">{profile?.department || 'Not set'}</p>
         </div>
         <div className="card">
-          <p className="text-sm text-gray-400">Level</p>
-          <p className="font-medium">{profile?.level || 'Not set'}</p>
+          <p className="text-sm text-gray-400 dark:text-slate-400">Level</p>
+          <p className="font-medium dark:text-slate-100">{profile?.level || 'Not set'}</p>
         </div>
         <div className="card">
-          <p className="text-sm text-gray-400">Saved companies</p>
-          <p className="font-medium">{saved.length}</p>
+          <p className="text-sm text-gray-400 dark:text-slate-400">Saved companies</p>
+          <p className="font-medium dark:text-slate-100">{saved.length}</p>
         </div>
       </div>
 
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="font-heading text-lg font-semibold">Recommended for you</h2>
-        <span className="text-xs text-gray-400">Matched by department, location, and open status</span>
+      <div className="mb-4 flex items-center justify-between">
+        <h2 className="font-heading text-lg font-semibold dark:text-slate-50">Recommended for you</h2>
+        <span className="text-xs text-gray-400 dark:text-slate-400">Matched by department, location, and open status</span>
       </div>
       {recommended.length === 0 ? (
-        <p className="text-gray-400 text-sm mb-10">
+        <p className="mb-10 text-sm text-gray-400 dark:text-slate-400">
           Complete your department and preferred location in your profile to see matches here.
         </p>
       ) : (
-        <div className="grid md:grid-cols-2 gap-4 mb-10">
+        <div className="mb-10 grid gap-4 md:grid-cols-2">
           {recommended.slice(0, 4).map((c) => <CompanyCard key={c.id} company={c} />)}
         </div>
       )}
 
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="font-heading text-lg font-semibold">Saved Companies</h2>
+      <div className="mb-4 flex items-center justify-between">
+        <h2 className="font-heading text-lg font-semibold dark:text-slate-50">Saved Companies</h2>
         <div className="flex gap-4">
-          <Link href="/dashboard/applications" className="text-primary text-sm font-medium">My applications →</Link>
-          <Link href="/companies" className="text-primary text-sm font-medium">Browse directory →</Link>
+          <Link href="/dashboard/applications" className="text-sm font-medium text-primary">My applications →</Link>
+          <Link href="/companies" className="text-sm font-medium text-primary">Browse directory →</Link>
         </div>
       </div>
 
       {saved.length === 0 ? (
-        <p className="text-gray-400 text-sm">
+        <p className="text-sm text-gray-400 dark:text-slate-400">
           You haven&apos;t saved any companies yet. Browse the directory and tap &quot;Save Company&quot;
           on ones you&apos;re interested in.
         </p>
       ) : (
-        <div className="grid md:grid-cols-2 gap-4">
+        <div className="grid gap-4 md:grid-cols-2">
           {saved.map((c) => <CompanyCard key={c.id} company={c} />)}
         </div>
       )}

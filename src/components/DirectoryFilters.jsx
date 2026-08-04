@@ -86,7 +86,7 @@ export default function DirectoryFilters({ initial }) {
 
   return (
     <div className="mb-8">
-      <div className="card grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+      <div className="card animate-fade-up grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
         <div className="relative lg:col-span-2">
           <svg
             width="16" height="16" viewBox="0 0 24 24" fill="none"
@@ -124,7 +124,7 @@ export default function DirectoryFilters({ initial }) {
       </div>
 
       {activeEntries.length > 0 && (
-        <div className="flex flex-wrap items-center gap-2 mt-3 px-1 animate-fade-up">
+        <div className="mt-3 flex flex-wrap items-center gap-2 px-1 animate-fade-up">
           <span className="text-xs text-silver-dark font-mono uppercase tracking-wide">Filtering by</span>
           {activeEntries.map(([key, value]) => (
             <button

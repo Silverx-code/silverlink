@@ -14,3 +14,4 @@ export const setUserActive = (id, isActive) => api.patch(`/admin/users/${id}/act
 export const deleteUser = (id) => api.delete(`/admin/users/${id}`).then((r) => r.data);
 export const getCompaniesAdmin = (params) => api.get('/admin/companies', { params }).then((r) => r.data);
 export const deleteCompanyAdmin = (id) => api.delete(`/admin/companies/${id}`).then((r) => r.data);
+export const getCompanyVerificationLink = (id) => api.get(`/admin/companies/${id}/verification-link`).then((r) => r.data);

@@ -75,15 +75,19 @@ function AdminDashboardContent() {
   if (loading) return <LoadingScreen label="Loading admin dashboard..." />;
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-10">
-      <h1 className="font-heading text-2xl font-bold mb-6">Admin</h1>
-      {message && <p className="text-sm text-green-600 mb-4">{message}</p>}
+    <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6">
+      <div className="mb-8 rounded-[2rem] border border-primary/10 bg-white/70 p-6 shadow-card backdrop-blur-sm dark:border-slate-800 dark:bg-slate-900/70">
+        <p className="eyebrow">Operations control</p>
+        <h1 className="mt-2 font-heading text-2xl font-bold text-ink dark:text-slate-50">Admin</h1>
+        <p className="mt-2 text-sm text-silver-dark dark:text-slate-400">Manage placement growth, verification, and network quality from one place.</p>
+      </div>
+      {message && <p className="mb-4 text-sm text-green-600">{message}</p>}
 
-      <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-10">
+      <div className="mb-10 grid grid-cols-2 gap-4 md:grid-cols-5">
         {stats && Object.entries(stats).map(([key, value]) => (
           <div key={key} className="card text-center">
             <p className="text-2xl font-heading font-bold text-primary">{value}</p>
-            <p className="text-xs text-gray-400 mt-1 capitalize">{key.replace(/([A-Z])/g, ' $1')}</p>
+            <p className="mt-1 text-xs capitalize text-gray-400 dark:text-slate-400">{key.replace(/([A-Z])/g, ' $1')}</p>
           </div>
         ))}
       </div>
@@ -127,6 +131,21 @@ function AdminDashboardContent() {
               <button type="button" onClick={() => verify(c.id)} className="btn-primary text-sm py-2">
                 Verify
               </button>
+              <button
+  type="button"
+  onClick={async () => {
+    try {
+      const res = await getCompanyVerificationLink(c.id);
+      await navigator.clipboard.writeText(res.data.url);
+      flash(`Link copied for ${c.name} — paste it into an email or message.`);
+    } catch (err) {
+      alert(err.response?.data?.message || 'Could not generate a link right now.');
+    }
+  }}
+  className="text-sm border border-primary text-primary px-3 py-2 rounded-xl"
+>
+  Copy verification link
+</button>
             </div>
           ))}
         </div>

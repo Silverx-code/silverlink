@@ -1,7 +1,9 @@
 import './globals.css';
 import { AuthProvider } from '../src/context/AuthContext';
+import { ThemeProvider } from '../src/context/ThemeContext';
 import Navbar from '../src/components/Navbar';
 import Footer from '../src/components/Footer';
+import AnimatedBackground from '../src/components/AnimatedBackground';
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
 

@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '../context/AuthContext';
 import NotificationBell from './NotificationBell';
 import Logo from './Logo';
+import ThemeToggle from './ThemeToggle';
 
 export default function Navbar() {
   const { user, logout } = useAuth();
@@ -20,14 +21,14 @@ export default function Navbar() {
   };
 
   return (
-    <header className="bg-white/90 backdrop-blur border-b border-silver/20 sticky top-0 z-30">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+    <header className="sticky top-0 z-30 border-b border-silver/20 bg-white/80 backdrop-blur-xl dark:border-slate-800 dark:bg-slate-950/70">
+      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
         <Link href="/" onClick={() => setMenuOpen(false)}>
           <Logo size={30} />
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-ink">
+        <nav className="hidden md:flex items-center gap-4 text-sm font-medium text-ink dark:text-slate-100">
           <Link href="/companies" className="hover:text-primary transition-colors">Companies</Link>
           {user ? (
             <>
@@ -39,6 +40,7 @@ export default function Navbar() {
                 <Link href="/company/applications" className="hover:text-primary transition-colors">Applications</Link>
               )}
               <NotificationBell />
+              <ThemeToggle />
               <Link href="/settings" className="text-silver-dark hover:text-primary transition-colors" title="Account settings">⚙</Link>
               <button
                 type="button"
@@ -52,6 +54,7 @@ export default function Navbar() {
             <>
               <Link href="/login" className="hover:text-primary transition-colors">Log in</Link>
               <Link href="/register" className="hover:text-primary transition-colors">Student sign up</Link>
+              <ThemeToggle />
               <Link href="/register/company" className="btn-primary text-sm py-2">For Companies</Link>
             </>
           )}
@@ -77,7 +80,7 @@ export default function Navbar() {
 
       {/* Mobile nav */}
       {menuOpen && (
-        <nav className="md:hidden border-t border-silver/20 bg-white px-4 py-4 flex flex-col gap-4 text-sm font-medium text-ink animate-fade-up">
+        <nav className="md:hidden flex flex-col gap-4 border-t border-silver/20 bg-white/90 px-4 py-4 text-sm font-medium text-ink animate-fade-up dark:border-slate-800 dark:bg-slate-950/90 dark:text-slate-100">
           <Link href="/companies" onClick={() => setMenuOpen(false)} className="hover:text-primary">Companies</Link>
           {user ? (
             <>
@@ -88,7 +91,10 @@ export default function Navbar() {
               {user.role === 'company' && (
                 <Link href="/company/applications" onClick={() => setMenuOpen(false)} className="hover:text-primary">Applications</Link>
               )}
-              <Link href="/settings" onClick={() => setMenuOpen(false)} className="text-silver-dark">Settings</Link>
+              <div className="flex items-center gap-3">
+                <ThemeToggle />
+                <Link href="/settings" onClick={() => setMenuOpen(false)} className="text-silver-dark">Settings</Link>
+              </div>
               <button
                 type="button"
                 onClick={() => { logout(); setMenuOpen(false); router.push('/'); }}
@@ -101,7 +107,10 @@ export default function Navbar() {
             <>
               <Link href="/login" onClick={() => setMenuOpen(false)} className="hover:text-primary">Log in</Link>
               <Link href="/register" onClick={() => setMenuOpen(false)} className="hover:text-primary">Student sign up</Link>
-              <Link href="/register/company" onClick={() => setMenuOpen(false)} className="btn-primary text-sm py-2 w-fit">For Companies</Link>
+              <div className="flex items-center gap-3">
+                <ThemeToggle />
+                <Link href="/register/company" onClick={() => setMenuOpen(false)} className="btn-primary text-sm py-2 w-fit">For Companies</Link>
+              </div>
             </>
           )}
         </nav>

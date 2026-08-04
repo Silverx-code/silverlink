@@ -12,24 +12,18 @@ export default function Logo({ className = '', showWordmark = true, size = 32 })
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden="true"
       >
-        <rect width="40" height="40" rx="11" className="fill-primary" />
-        <path
-          d="M13 15.5C13 12.462 15.462 10 18.5 10H21"
-          stroke="white"
-          strokeWidth="3.2"
-          strokeLinecap="round"
-        />
-        <path
-          d="M27 24.5C27 27.538 24.538 30 21.5 30H19"
-          stroke="white"
-          strokeWidth="3.2"
-          strokeLinecap="round"
-        />
-        <rect x="10.5" y="12" width="9.5" height="9.5" rx="4.75" stroke="white" strokeWidth="2.6" />
-        <rect x="20" y="18.5" width="9.5" height="9.5" rx="4.75" stroke="#FFB238" strokeWidth="2.6" />
+        <rect width="40" height="40" rx="12" className="fill-primary" />
+        <circle cx="14" cy="14" r="4" fill="white" />
+        <circle cx="26" cy="26" r="4" fill="#FFB238" />
+        <path d="M14 18L14 24" stroke="white" strokeWidth="2.6" strokeLinecap="round" />
+        <path d="M22 14H26" stroke="white" strokeWidth="2.6" strokeLinecap="round" />
+        <path d="M18 14L22 14" stroke="#FFB238" strokeWidth="2.6" strokeLinecap="round" />
+        <path d="M18 26L22 26" stroke="white" strokeWidth="2.6" strokeLinecap="round" />
+        <path d="M18 14C18 18 18 22 18 26" stroke="white" strokeWidth="2.6" strokeLinecap="round" />
+        <path d="M22 14C22 18 22 22 22 26" stroke="#FFB238" strokeWidth="2.6" strokeLinecap="round" />
       </svg>
       {showWordmark && (
-        <span className="font-heading font-bold text-xl leading-none text-ink">
+        <span className="font-heading font-bold text-xl leading-none text-ink dark:text-slate-50">
           Silver<span className="text-primary">Link</span>
         </span>
       )}

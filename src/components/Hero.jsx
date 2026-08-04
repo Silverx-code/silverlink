@@ -74,16 +74,16 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-silver-light/50 to-page">
-      <div className="absolute inset-0 bg-link-grid opacity-60 pointer-events-none" />
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-20 lg:py-28 grid lg:grid-cols-2 gap-12 lg:gap-8 items-center relative">
+    <section className="relative overflow-hidden bg-gradient-to-b from-silver-light/60 to-page dark:from-slate-900 dark:to-slate-950">
+      <div className="absolute inset-0 bg-link-grid opacity-60 pointer-events-none dark:opacity-30" />
+      <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-[1.03fr_0.97fr] lg:gap-8 lg:py-28">
         {/* Copy */}
         <div className="animate-fade-up">
           <span className="eyebrow">SIWES &amp; internship placement</span>
-          <h1 className="mt-4 font-heading font-bold text-4xl sm:text-5xl lg:text-[3.4rem] leading-[1.05] text-ink text-balance">
+          <h1 className="mt-4 font-heading font-bold text-4xl leading-[1.05] text-ink text-balance sm:text-5xl lg:text-[3.4rem] dark:text-slate-50">
             Where students meet the companies ready to train them.
           </h1>
-          <p className="mt-5 text-base sm:text-lg text-silver-dark max-w-md leading-relaxed">
+          <p className="mt-5 max-w-md text-base leading-relaxed text-silver-dark sm:text-lg dark:text-slate-300">
             SilverLink connects Nigerian university students, host companies, and
             coordinators on one verified directory — so finding a placement isn't
             about who you know.
@@ -96,7 +96,7 @@ export default function Hero() {
               List your company
             </Link>
           </div>
-          <div className="mt-10 flex flex-wrap gap-x-8 gap-y-3 font-mono text-xs text-silver-dark">
+          <div className="mt-10 flex flex-wrap gap-x-8 gap-y-3 font-mono text-xs text-silver-dark dark:text-slate-400">
             <span><strong className="text-ink text-sm">10+</strong> companies listed</span>
             <span><strong className="text-ink text-sm">3</strong> states covered</span>
             <span><strong className="text-ink text-sm">Free</strong> for students</span>
@@ -108,7 +108,7 @@ export default function Hero() {
           ref={containerRef}
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
-          className="relative aspect-square sm:aspect-[4/3] lg:aspect-square w-full max-w-lg mx-auto select-none"
+          className="relative mx-auto aspect-square w-full max-w-lg select-none rounded-[2rem] border border-primary/10 bg-white/50 p-4 shadow-card backdrop-blur-sm dark:border-slate-800 dark:bg-slate-900/60 sm:aspect-[4/3] lg:aspect-square"
         >
           <svg viewBox="0 0 100 100" className="w-full h-full overflow-visible">
             {/* connection lines — draw themselves in on mount, staggered per node */}
