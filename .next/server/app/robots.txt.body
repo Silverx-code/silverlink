@@ -1,0 +1,9 @@
+User-Agent: *
+Allow: /
+Disallow: /dashboard
+Disallow: /company/dashboard
+Disallow: /admin
+Disallow: /university
+Disallow: /settings
+
+Sitemap: https://silverlink-backend-s3xm.onrender.com/sitemap.xml

@@ -1,4 +1,25 @@
 {
+  "/_not-found/page": "app/_not-found/page.js",
+  "/admin/page": "app/admin/page.js",
+  "/companies/[id]/page": "app/companies/[id]/page.js",
+  "/company/applications/page": "app/company/applications/page.js",
+  "/company/verify-pending/page": "app/company/verify-pending/page.js",
+  "/dashboard/applications/page": "app/dashboard/applications/page.js",
+  "/dashboard/page": "app/dashboard/page.js",
+  "/dashboard/profile/page": "app/dashboard/profile/page.js",
+  "/page": "app/page.js",
   "/login/page": "app/login/page.js",
-  "/page": "app/page.js"
+  "/company/dashboard/page": "app/company/dashboard/page.js",
+  "/forgot-password/page": "app/forgot-password/page.js",
+  "/robots.txt/route": "app/robots.txt/route.js",
+  "/register/company/page": "app/register/company/page.js",
+  "/register/page": "app/register/page.js",
+  "/reset-password/[token]/page": "app/reset-password/[token]/page.js",
+  "/settings/page": "app/settings/page.js",
+  "/sitemap.xml/route": "app/sitemap.xml/route.js",
+  "/university/dashboard/page": "app/university/dashboard/page.js",
+  "/verify-company/[token]/page": "app/verify-company/[token]/page.js",
+  "/terms/page": "app/terms/page.js",
+  "/companies/page": "app/companies/page.js",
+  "/privacy/page": "app/privacy/page.js"
 }

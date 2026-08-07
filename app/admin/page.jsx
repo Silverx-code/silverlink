@@ -13,6 +13,7 @@ import ProtectedRoute from '../../src/components/ProtectedRoute';
 import AdminAddCompanyForm from '../../src/components/AdminAddCompanyForm';
 import AdminCompaniesPanel from '../../src/components/AdminCompaniesPanel';
 import AdminUsersPanel from '../../src/components/AdminUsersPanel';
+import AdminScraperPanel from '../../src/components/AdminScraperPanel';
 
 function AdminDashboardContent() {
   const [stats, setStats] = useState(null);
@@ -191,6 +192,11 @@ function AdminDashboardContent() {
       <h2 className="font-heading text-lg font-semibold mb-3">Manage companies</h2>
       <div className="mb-10">
         <AdminCompaniesPanel />
+      </div>
+
+      <h2 className="font-heading text-lg font-semibold mb-3">Scraper</h2>
+      <div className="mb-10">
+        <AdminScraperPanel />
       </div>
 
       <h2 className="font-heading text-lg font-semibold mb-3">Universities & coordinators</h2>

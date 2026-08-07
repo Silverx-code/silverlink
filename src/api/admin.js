@@ -15,3 +15,6 @@ export const deleteUser = (id) => api.delete(`/admin/users/${id}`).then((r) => r
 export const getCompaniesAdmin = (params) => api.get('/admin/companies', { params }).then((r) => r.data);
 export const deleteCompanyAdmin = (id) => api.delete(`/admin/companies/${id}`).then((r) => r.data);
 export const getCompanyVerificationLink = (id) => api.get(`/admin/companies/${id}/verification-link`).then((r) => r.data);
+export const getScraperStatus = () => api.get('/admin/scraper/status').then((r) => r.data);
+export const runScraper = () => api.post('/admin/scraper/run').then((r) => r.data);
+export const getScraperLogs = () => api.get('/admin/scraper/logs').then((r) => r.data);
