@@ -63,8 +63,16 @@ function DashboardContent() {
           Complete your department and preferred location in your profile to see matches here.
         </p>
       ) : (
-        <div className="mb-10 grid gap-4 md:grid-cols-2">
-          {recommended.slice(0, 4).map((c) => <CompanyCard key={c.id} company={c} />)}
+        <div className="mb-10 overflow-hidden rounded-[2rem] border border-slate-200 bg-slate-50/80 p-4 shadow-card dark:border-slate-800 dark:bg-slate-900/70">
+          <div className="space-y-4 overflow-x-auto pb-4 scrollbar-thin scrollbar-thumb-slate-300/80 scrollbar-track-transparent dark:scrollbar-thumb-slate-700/40">
+            <div className="flex gap-4 min-w-[140%] md:min-w-full md:gap-5">
+              {recommended.slice(0, 4).map((c) => (
+                <div key={c.id} className="min-w-[320px] flex-1 md:min-w-[calc(50%-1rem)]">
+                  <CompanyCard company={c} />
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       )}
 
@@ -82,7 +90,7 @@ function DashboardContent() {
           on ones you&apos;re interested in.
         </p>
       ) : (
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {saved.map((c) => <CompanyCard key={c.id} company={c} />)}
         </div>
       )}

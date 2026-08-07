@@ -44,7 +44,7 @@ export default async function CompanyDirectoryPage({ searchParams }) {
           No companies match your filters yet.
         </div>
       ) : (
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           {companies.map((c) => <CompanyCard key={c.id} company={c} />)}
         </div>
       )}
