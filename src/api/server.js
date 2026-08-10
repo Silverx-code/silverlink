@@ -24,7 +24,13 @@ async function serverFetch(path, { revalidate = 60, searchParams } = {}) {
   return res.json();
 }
 
-export const getCompanySSR = (id) => serverFetch(`/companies/${id}`, { revalidate: 120 });
+// The company endpoint returns { success, data: company }, while company profile
+// pages need the company record itself. Unwrap it here so every profile field
+// (name, description, location, website, etc.) renders correctly.
+export const getCompanySSR = async (id) => {
+  const response = await serverFetch(`/companies/${id}`, { revalidate: 120 });
+  return response?.data || null;
+};
 export const getCompanyReviewsSSR = (id) => serverFetch(`/companies/${id}/reviews`, { revalidate: 300 });
 export const searchCompaniesSSR = (params) => serverFetch('/companies', { searchParams: params, revalidate: 60 });
 export const listAllCompanyIdsSSR = () => serverFetch('/companies', { searchParams: { limit: 1000 }, revalidate: 3600 });
