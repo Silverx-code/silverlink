@@ -44,6 +44,16 @@ const APPLY_METHOD_LABEL = {
   external_link: 'Apply on their site',
 };
 
+function toHttpUrl(value) {
+  if (!value) return null;
+  try {
+    const url = new URL(value.includes('://') ? value : `https://${value}`);
+    return ['http:', 'https:'].includes(url.protocol) ? url.toString() : null;
+  } catch {
+    return null;
+  }
+}
+
 export default async function CompanyProfilePage({ params }) {
   const [company, reviewsRes] = await Promise.all([
     getCompanySSR(params.id),
@@ -54,6 +64,11 @@ export default async function CompanyProfilePage({ params }) {
   const reviews = reviewsRes?.data || [];
   const isAccepting = company.status === 'currently_accepting';
   const showAlternateApply = isAccepting && company.apply_method && company.apply_method !== 'platform';
+  const isHistorical = company.status === 'historical_listing';
+  const location = [company.address, company.city, company.state].filter(Boolean).join(', ');
+  const websiteUrl = toHttpUrl(company.website);
+  const sourcePageUrl = toHttpUrl(company.source_page);
+  const hasListingDetails = location || websiteUrl || Number(company.available_slots) > 0 || company.is_verified || sourcePageUrl;
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
@@ -67,9 +82,9 @@ export default async function CompanyProfilePage({ params }) {
           <div>
             <h1 className="font-heading text-2xl font-bold">{company.name}</h1>
             <p className="text-gray-500">{company.industry}</p>
-            {(company.city || company.state) && (
+            {location && (
               <p className="text-gray-400 text-sm mt-1">
-                {[company.address, company.city, company.state].filter(Boolean).join(', ')}
+                {location}
               </p>
             )}
             <p className="text-sm mt-2">
@@ -82,6 +97,61 @@ export default async function CompanyProfilePage({ params }) {
 
         <CompanyProfileActions companyId={company.id} status={company.status} applyMethod={company.apply_method} />
       </div>
+
+      {isHistorical && (
+        <div className="card mt-6 border-amber-200 bg-amber-50/70">
+          <h2 className="font-heading font-semibold text-amber-900 mb-1">Historical listing</h2>
+          <p className="text-sm text-amber-800">
+            This company has not yet claimed this Silver Link profile. Details are retained for reference and may be out of date; confirm availability with the company before applying.
+          </p>
+        </div>
+      )}
+
+      {hasListingDetails && (
+        <div className="card mt-6">
+          <h2 className="font-heading font-semibold mb-3">Company details</h2>
+          <dl className="grid gap-4 sm:grid-cols-2 text-sm">
+            {location && (
+              <div>
+                <dt className="text-gray-400">Location</dt>
+                <dd className="mt-1 text-gray-700">{location}</dd>
+              </div>
+            )}
+            {websiteUrl && (
+              <div>
+                <dt className="text-gray-400">Website</dt>
+                <dd className="mt-1">
+                  <a href={websiteUrl} target="_blank" rel="noreferrer noopener" className="text-primary hover:underline break-all">
+                    {company.website}
+                  </a>
+                </dd>
+              </div>
+            )}
+            {Number(company.available_slots) > 0 && (
+              <div>
+                <dt className="text-gray-400">Available SIWES slots</dt>
+                <dd className="mt-1 text-gray-700">{company.available_slots}</dd>
+              </div>
+            )}
+            {company.is_verified && (
+              <div>
+                <dt className="text-gray-400">Profile status</dt>
+                <dd className="mt-1 text-green-700">Verified company profile</dd>
+              </div>
+            )}
+            {sourcePageUrl && (
+              <div>
+                <dt className="text-gray-400">Listing source</dt>
+                <dd className="mt-1">
+                  <a href={sourcePageUrl} target="_blank" rel="noreferrer noopener" className="text-primary hover:underline">
+                    View source
+                  </a>
+                </dd>
+              </div>
+            )}
+          </dl>
+        </div>
+      )}
 
       {showAlternateApply && (
         <div className="card mt-6 border-primary/30">
