@@ -14,8 +14,7 @@ export default function CompanyCard({ company }) {
   const typeLabel = company.listing_type ? company.listing_type.replace(/_/g, ' ') : 'Placement';
 
   return (
-    <Link
-      href={`/companies/${company.id}`}
+    <article
       className={`group relative overflow-hidden rounded-[2rem] border border-slate-200 bg-gradient-to-br from-white via-slate-50 to-slate-100 p-6 shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-card-hover dark:border-slate-800 dark:bg-slate-900/70`}
     >
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(30,79,216,0.12),transparent_25%),radial-gradient(circle_at_bottom_right,rgba(255,178,56,0.10),transparent_30%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
@@ -50,15 +49,19 @@ export default function CompanyCard({ company }) {
         </div>
 
         <div className="flex items-center justify-between gap-3 pt-2">
-          <div className="text-xs uppercase tracking-[0.24em] text-slate-400 dark:text-slate-500">View details</div>
-          <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2 text-xs font-semibold text-primary transition-all duration-200 group-hover:bg-primary/20">
+          <span className="text-xs uppercase tracking-[0.24em] text-slate-400 dark:text-slate-500">View details</span>
+          <Link
+            href={`/companies/${company.id}`}
+            aria-label={`View details for ${company.name}`}
+            className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2 text-xs font-semibold text-primary transition-all duration-200 hover:bg-primary/20 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+          >
             Learn more
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="stroke-current">
               <path d="M5 12h14M13 6l6 6-6 6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
-          </div>
+          </Link>
         </div>
       </div>
-    </Link>
+    </article>
   );
 }
