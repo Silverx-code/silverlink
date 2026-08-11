@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { getMyApplications } from '../../../src/api/applications';
 import api from '../../../src/api/client';
 import ChatPanel from '../../../src/components/ChatPanel';
-import LoadingScreen from '../../../src/components/LoadingScreen';
+import ListSkeleton from '../../../src/components/ListSkeleton';
 import ProtectedRoute from '../../../src/components/ProtectedRoute';
 
 const STATUS_STYLES = {
@@ -32,13 +32,13 @@ function StudentApplicationsContent() {
     setApplications((prev) => prev.filter((a) => a.id !== id));
   };
 
-  if (loading) return <LoadingScreen />;
-
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
       <h1 className="font-heading text-2xl font-bold mb-6">My Applications</h1>
 
-      {applications.length === 0 ? (
+      {loading ? (
+        <ListSkeleton rows={4} />
+      ) : applications.length === 0 ? (
         <p className="text-gray-400 text-sm">
           You haven&apos;t applied to any companies yet. Browse the directory and apply from a company&apos;s profile.
         </p>

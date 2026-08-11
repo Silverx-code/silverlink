@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useAuth } from '../context/AuthContext';
 import NotificationBell from './NotificationBell';
 import Logo from './Logo';
@@ -11,7 +11,17 @@ import ThemeToggle from './ThemeToggle';
 export default function Navbar() {
   const { user, logout } = useAuth();
   const router = useRouter();
+  const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+  const showBack = pathname !== '/';
+
+  const goBack = () => {
+    if (typeof window !== 'undefined' && window.history.length > 1) {
+      router.back();
+      return;
+    }
+    router.push('/');
+  };
 
   const dashboardLink = () => {
     if (user?.role === 'company') return '/company/dashboard';
@@ -26,6 +36,16 @@ export default function Navbar() {
         <Link href="/" onClick={() => setMenuOpen(false)}>
           <Logo size={30} />
         </Link>
+
+        {showBack && (
+          <button
+            type="button"
+            onClick={goBack}
+            className="hidden rounded-full border border-silver/40 px-3 py-1.5 text-sm font-medium text-silver-dark transition-colors hover:border-primary/40 hover:text-primary md:inline-flex dark:border-slate-700 dark:text-slate-300"
+          >
+            Back
+          </button>
+        )}
 
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-4 text-sm font-medium text-ink dark:text-slate-100">
@@ -81,6 +101,15 @@ export default function Navbar() {
       {/* Mobile nav */}
       {menuOpen && (
         <nav className="md:hidden flex flex-col gap-4 border-t border-silver/20 bg-white/90 px-4 py-4 text-sm font-medium text-ink animate-fade-up dark:border-slate-800 dark:bg-slate-950/90 dark:text-slate-100">
+          {showBack && (
+            <button
+              type="button"
+              onClick={() => { setMenuOpen(false); goBack(); }}
+              className="text-left text-silver-dark hover:text-primary dark:text-slate-300"
+            >
+              Back
+            </button>
+          )}
           <Link href="/companies" onClick={() => setMenuOpen(false)} className="hover:text-primary">Companies</Link>
           {user ? (
             <>

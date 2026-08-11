@@ -31,6 +31,12 @@ function StudentProfileContent() {
     setError('');
     setMessage('');
     try {
+      if ((form.preferredState && !form.preferredCity) || (!form.preferredState && form.preferredCity)) {
+        setError('Add both preferred state and preferred city so we can recommend companies near you.');
+        setSaving(false);
+        return;
+      }
+
       let preferredLocationId;
       if (form.preferredState && form.preferredCity) {
         const locRes = await findOrCreateLocation(form.preferredState, form.preferredCity);
@@ -49,8 +55,8 @@ function StudentProfileContent() {
       }
 
       await refreshMe();
-      setMessage('Profile updated.');
-      setTimeout(() => router.push('/dashboard'), 1000);
+      setMessage('Profile updated. Finding your recommendations...');
+      setTimeout(() => router.push('/dashboard?recommendations=ready'), 700);
     } catch (err) {
       setError(err.response?.data?.message || 'Could not save your profile.');
     } finally {
@@ -69,6 +75,7 @@ function StudentProfileContent() {
         <input
           placeholder="Department (e.g. Computer Science)" className="input"
           value={form.department} onChange={(e) => setForm({ ...form, department: e.target.value })}
+          required
         />
         <input
           placeholder="Faculty" className="input"
@@ -77,6 +84,7 @@ function StudentProfileContent() {
         <select
           className="input" value={form.level}
           onChange={(e) => setForm({ ...form, level: e.target.value })}
+          required
         >
           <option value="">Select level</option>
           {LEVELS.map((l) => <option key={l} value={l}>{l} Level</option>)}
@@ -85,10 +93,12 @@ function StudentProfileContent() {
           <input
             placeholder="Preferred state" className="input"
             value={form.preferredState} onChange={(e) => setForm({ ...form, preferredState: e.target.value })}
+            required
           />
           <input
             placeholder="Preferred city" className="input"
             value={form.preferredCity} onChange={(e) => setForm({ ...form, preferredCity: e.target.value })}
+            required
           />
         </div>
 

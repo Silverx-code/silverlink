@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { listMyApplications, updateApplicationStatus } from '../../../src/api/company';
 import ChatPanel from '../../../src/components/ChatPanel';
-import InlineSpinner from '../../../src/components/InlineSpinner';
+import ListSkeleton from '../../../src/components/ListSkeleton';
 import ProtectedRoute from '../../../src/components/ProtectedRoute';
 
 const STATUS_STYLES = {
@@ -58,7 +58,7 @@ function CompanyApplicationsContent() {
       </div>
 
       {loading ? (
-        <div className="flex justify-center py-16"><InlineSpinner size={28} /></div>
+        <ListSkeleton rows={4} />
       ) : applications.length === 0 ? (
         <p className="text-gray-400 text-sm">No applications match these filters.</p>
       ) : (
