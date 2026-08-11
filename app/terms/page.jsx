@@ -4,15 +4,9 @@ export default function TermsPage() {
   return (
     <div className="max-w-2xl mx-auto px-4 py-12 prose-sm">
       <h1 className="font-heading text-2xl font-bold mb-2">Terms of Service</h1>
-      <p className="text-sm text-gray-400 mb-8">Last updated: [DATE]</p>
+      <p className="text-sm text-gray-400 mb-8">Last updated: August 11, 2026</p>
 
       <div className="space-y-6 text-sm text-gray-600 leading-relaxed">
-        <p className="bg-yellow-50 border border-yellow-200 text-yellow-800 rounded-lg p-3 text-xs">
-          Placeholder legal text — have this reviewed by a lawyer familiar with Nigerian
-          law (including the Nigeria Data Protection Act) before launch. This is a
-          reasonable starting structure, not legal advice.
-        </p>
-
         <section>
           <h2 className="font-heading font-semibold text-gray-800 mb-1">1. Who we are</h2>
           <p>
@@ -35,7 +29,7 @@ export default function TermsPage() {
         <section>
           <h2 className="font-heading font-semibold text-gray-800 mb-1">3. What we don't guarantee</h2>
           <p>
-            Silver Link is a directory and communication tool — we don't guarantee a
+            Silver Link is a directory and communication tool. We don't guarantee a
             placement, verify every claim a company or student makes, or act as a party
             to any agreement between a student and a company. Companies are responsible
             for their own hiring decisions and workplace conditions.
@@ -69,7 +63,12 @@ export default function TermsPage() {
 
         <section>
           <h2 className="font-heading font-semibold text-gray-800 mb-1">7. Contact</h2>
-          <p>Questions about these terms: [YOUR CONTACT EMAIL]</p>
+          <p>Questions about these terms can be sent to layifakunlesubomi@gmail.com or +234 812593003.</p>
+        </section>
+
+        <section className="border-t border-silver/20 pt-4 text-xs text-gray-500">
+          <p>Email: layifakunlesubomi@gmail.com</p>
+          <p>Phone: +234 812593003</p>
         </section>
       </div>
     </div>

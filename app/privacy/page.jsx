@@ -4,20 +4,13 @@ export default function PrivacyPage() {
   return (
     <div className="max-w-2xl mx-auto px-4 py-12 prose-sm">
       <h1 className="font-heading text-2xl font-bold mb-2">Privacy Policy</h1>
-      <p className="text-sm text-gray-400 mb-8">Last updated: [DATE]</p>
+      <p className="text-sm text-gray-400 mb-8">Last updated: August 11, 2026</p>
 
       <div className="space-y-6 text-sm text-gray-600 leading-relaxed">
-        <p className="bg-yellow-50 border border-yellow-200 text-yellow-800 rounded-lg p-3 text-xs">
-          Placeholder legal text — have this reviewed by a lawyer before launch,
-          specifically for compliance with Nigeria's Data Protection Act (NDPA) since
-          this platform collects student PII including CVs and university data. This is
-          a reasonable starting structure, not legal advice.
-        </p>
-
         <section>
           <h2 className="font-heading font-semibold text-gray-800 mb-1">1. What we collect</h2>
           <p>
-            Account details (name, email, password — stored hashed, never in plain
+            Account details (name, email, password - stored hashed, never in plain
             text), university/department/level for students, company details for
             company accounts, CVs and logos you upload, messages sent through the
             platform's chat, and reviews you write.
@@ -58,13 +51,18 @@ export default function PrivacyPage() {
           <h2 className="font-heading font-semibold text-gray-800 mb-1">5. Your rights</h2>
           <p>
             You can update your profile at any time. To request deletion of your
-            account and associated data, contact us at [YOUR CONTACT EMAIL].
+            account and associated data, contact us using the details below.
           </p>
         </section>
 
         <section>
           <h2 className="font-heading font-semibold text-gray-800 mb-1">6. Contact</h2>
-          <p>Questions about this policy: [YOUR CONTACT EMAIL]</p>
+          <p>Questions about this policy can be sent to layifakunlesubomi@gmail.com or +234 812593003.</p>
+        </section>
+
+        <section className="border-t border-silver/20 pt-4 text-xs text-gray-500">
+          <p>Email: layifakunlesubomi@gmail.com</p>
+          <p>Phone: +234 812593003</p>
         </section>
       </div>
     </div>
