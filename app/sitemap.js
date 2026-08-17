@@ -6,6 +6,7 @@ export default async function sitemap() {
   const staticUrls = [
     { url: `${siteUrl}/`, priority: 1.0 },
     { url: `${siteUrl}/companies`, priority: 0.9 },
+    { url: `${siteUrl}/how-it-works`, priority: 0.7 },
   ];
 
   // If the API is briefly unreachable during a build, ship the sitemap with just the
