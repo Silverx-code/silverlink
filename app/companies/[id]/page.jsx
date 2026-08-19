@@ -154,19 +154,17 @@ export default async function CompanyProfilePage({ params }) {
       )}
 
       <div className="card mt-6 border-primary/30">
-        <h2 className="font-heading font-semibold mb-2">
-          {!isAccepting
-            ? 'Application availability'
-            : APPLY_METHOD_LABEL[applyMethod] || 'How to apply'}
-        </h2>
+        <h2 className="font-heading font-semibold mb-2">How to apply</h2>
 
-        {!isAccepting ? (
+        {!isAccepting && (
           <p className="text-sm text-gray-600">
             {company.status === 'applications_closed'
               ? 'Applications are currently closed for this listing. You can save the company and check back later for an update.'
               : 'This listing is not currently accepting applications. Confirm availability with the company before preparing an application.'}
           </p>
-        ) : applyMethod === 'email' ? (
+        )}
+
+        {(isAccepting || applyMethod !== 'platform') && (applyMethod === 'email' ? (
           company.apply_email ? (
             <div>
               <p className="text-sm text-gray-600 mb-3">
@@ -199,7 +197,7 @@ export default async function CompanyProfilePage({ params }) {
             <p>Your application will appear in your dashboard, where you can follow its status and message the company after they respond.</p>
             <Link href="/how-it-works" className="inline-block font-medium text-primary hover:underline">See the full student guide →</Link>
           </div>
-        )}
+        ))}
       </div>
 
       {/* The application route is always explained on a company profile. This keeps
