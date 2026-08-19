@@ -63,7 +63,7 @@ export default async function CompanyProfilePage({ params }) {
   if (!company) notFound();
   const reviews = reviewsRes?.data || [];
   const isAccepting = company.status === 'currently_accepting';
-  const showAlternateApply = isAccepting && company.apply_method && company.apply_method !== 'platform';
+  const applyMethod = company.apply_method || 'platform';
   const isHistorical = company.status === 'historical_listing';
   const location = [company.address, company.city, company.state].filter(Boolean).join(', ');
   const websiteUrl = toHttpUrl(company.website);
@@ -153,7 +153,58 @@ export default async function CompanyProfilePage({ params }) {
         </div>
       )}
 
-      {showAlternateApply && (
+      <div className="card mt-6 border-primary/30">
+        <h2 className="font-heading font-semibold mb-2">
+          {!isAccepting
+            ? 'Application availability'
+            : APPLY_METHOD_LABEL[applyMethod] || 'How to apply'}
+        </h2>
+
+        {!isAccepting ? (
+          <p className="text-sm text-gray-600">
+            {company.status === 'applications_closed'
+              ? 'Applications are currently closed for this listing. You can save the company and check back later for an update.'
+              : 'This listing is not currently accepting applications. Confirm availability with the company before preparing an application.'}
+          </p>
+        ) : applyMethod === 'email' ? (
+          company.apply_email ? (
+            <div>
+              <p className="text-sm text-gray-600 mb-3">
+                Send your CV directly to this company. Include your school, department, level, and SIWES availability.
+              </p>
+              <a
+                href={`mailto:${company.apply_email}?subject=${encodeURIComponent(`SIWES Application — ${company.name}`)}`}
+                className="btn-primary text-sm py-2 inline-block"
+              >
+                Send your CV to {company.apply_email}
+              </a>
+            </div>
+          ) : <p className="text-sm text-gray-600">Contact this company directly to confirm where to send your application.</p>
+        ) : applyMethod === 'in_person' ? (
+          company.apply_instructions
+            ? <p className="text-sm text-gray-600 whitespace-pre-line">{company.apply_instructions}</p>
+            : <p className="text-sm text-gray-600">Visit or contact the company to confirm its in-person application requirements.</p>
+        ) : applyMethod === 'external_link' ? (
+          company.apply_url ? (
+            <div>
+              <p className="text-sm text-gray-600 mb-3">This company handles applications on its own website or form.</p>
+              <a href={company.apply_url} target="_blank" rel="noreferrer noopener" className="btn-primary text-sm py-2 inline-block">
+                Apply on their site →
+              </a>
+            </div>
+          ) : <p className="text-sm text-gray-600">Visit the company website or contact them directly for its application form.</p>
+        ) : (
+          <div className="text-sm text-gray-600 space-y-3">
+            <p>Apply through Silver Link: create a student account, complete your profile, then select <strong className="text-ink">Apply</strong> at the top of this company&apos;s profile.</p>
+            <p>Your application will appear in your dashboard, where you can follow its status and message the company after they respond.</p>
+            <Link href="/how-it-works" className="inline-block font-medium text-primary hover:underline">See the full student guide →</Link>
+          </div>
+        )}
+      </div>
+
+      {/* The application route is always explained on a company profile. This keeps
+          "Learn more" useful even for visitors who are not signed in yet. */}
+      {/*
         <div className="card mt-6 border-primary/30">
           <h2 className="font-heading font-semibold mb-2">
             {APPLY_METHOD_LABEL[company.apply_method] || 'How to apply'}
@@ -193,7 +244,7 @@ export default async function CompanyProfilePage({ params }) {
             </div>
           )}
         </div>
-      )}
+      */}
 
       {company.description && (
         <div className="card mt-6">

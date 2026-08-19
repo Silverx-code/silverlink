@@ -4,6 +4,8 @@
 @tailwind components;
 @tailwind utilities;
 
+/* hello this is a comment */
+
 @layer base {
   html {
     scroll-behavior: smooth;

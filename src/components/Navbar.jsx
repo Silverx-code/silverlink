@@ -50,6 +50,7 @@ export default function Navbar() {
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-4 text-sm font-medium text-ink dark:text-slate-100">
           <Link href="/companies" className="hover:text-primary transition-colors">Companies</Link>
+          <Link href="/how-it-works" className="hover:text-primary transition-colors">How it works</Link>
           {user ? (
             <>
               <Link href={dashboardLink()} className="hover:text-primary transition-colors">Dashboard</Link>
@@ -111,6 +112,7 @@ export default function Navbar() {
             </button>
           )}
           <Link href="/companies" onClick={() => setMenuOpen(false)} className="hover:text-primary">Companies</Link>
+          <Link href="/how-it-works" onClick={() => setMenuOpen(false)} className="hover:text-primary">How it works</Link>
           {user ? (
             <>
               <Link href={dashboardLink()} onClick={() => setMenuOpen(false)} className="hover:text-primary">Dashboard</Link>

@@ -12,6 +12,7 @@ export default function Footer() {
           <p className="text-xs">Phone: +234 812593003</p>
         </div>
         <div className="flex gap-6">
+          <Link href="/how-it-works" className="hover:text-primary transition-colors">How it works</Link>
           <Link href="/contact" className="hover:text-primary transition-colors">Contact Us</Link>
           <Link href="/terms" className="hover:text-primary transition-colors">Terms of Service</Link>
           <Link href="/privacy" className="hover:text-primary transition-colors">Privacy Policy</Link>
